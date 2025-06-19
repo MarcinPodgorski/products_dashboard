@@ -1,0 +1,1 @@
+Simple ecommerce PIM API integration project boilerplate.
