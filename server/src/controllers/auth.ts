@@ -1,4 +1,3 @@
-import { Router } from 'express';
 import { AppDataSource } from '../data-source';
 import { User } from '../entities/User';
 import { comparePasswords } from '../utils/password';

@@ -1,20 +1,30 @@
-import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
+import { Request, Response, NextFunction } from 'express';
+import { AppDataSource } from '../data-source';
+import { User } from '../entities/User';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'supersecret';
-
-export const authenticate = (req: Request, res: Response, next: NextFunction) => {
+export async function authenticate(req: Request, res: Response, next: NextFunction):Promise<any> {
   const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res.status(401).json({ message: 'No token provided' });
+  if (!authHeader?.startsWith("Bearer ")) {
+    return res.status(401).json({ message: "Missing token" });
   }
 
-  const token = authHeader.split(' ')[1];
+  const token = authHeader.split(" ")[1];
   try {
-    const decoded = jwt.verify(token, JWT_SECRET);
-    (req as any).user = decoded;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: number };
+
+    const user = await AppDataSource.getRepository(User).findOne({
+      where: { id: decoded.id },
+      relations: ["categories"],
+    });
+
+    if (!user) {
+      return res.status(401).json({ message: "User not found" });
+    }
+
+    req.user = user;
     next();
   } catch (err) {
-    return res.status(401).json({ message: 'Invalid token' });
+    res.status(401).json({ message: "Invalid token" });
   }
-};
+}

@@ -19,7 +19,7 @@ app.get('/test', (_req, res) => {
 })
 
 app.use('/auth', authRouter)
-  
+
 app.use('/users', userRouter)
 
 app.use('/product', productRouter)
