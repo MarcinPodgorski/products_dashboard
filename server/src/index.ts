@@ -2,11 +2,9 @@ import 'reflect-metadata';
 import express from 'express';
 import dotenv from 'dotenv';
 import { AppDataSource } from './data-source';
-import { Product } from './entities/Product';
-import { Category } from './entities/Category';
-import { User } from './entities/User';
-import { addUser } from './routes/user';
-import { getProducts } from './routes/product';
+import authRouter from './routes/auth';
+import userRouter from './routes/user';
+import productRouter from './routes/product';
 import { fetchAndSaveProducts } from './utils/fetchAndSaveProducts';
 
 dotenv.config();
@@ -20,9 +18,11 @@ app.get('/test', (_req, res) => {
     res.send("API Działa");
 })
 
-app.get('/products', getProducts)
+app.use('/auth', authRouter)
   
-app.post('/users', addUser)
+app.use('/users', userRouter)
+
+app.use('/product', productRouter)
 
 const PORT = process.env.PORT || 6000;
 

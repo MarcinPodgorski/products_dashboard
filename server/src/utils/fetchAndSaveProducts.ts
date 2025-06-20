@@ -15,14 +15,21 @@ export async function fetchAndSaveProducts() {
             if (existing) continue;
 
             let category = await categoryRepository.findOne({ where: { name: item.category.name }});
-
+            if (!category) {
+                category = categoryRepository.create({
+                    id: item.category?.id,
+                    name: item.category?.name,
+                    image: item.category?.image
+                });
+                await categoryRepository.save(category);
+            }
             const product = productRepository.create({
                 id: item.id,
                 title: item.title,
                 description: item.description,
                 price: item.price,
-                images: item.images
-                // do ogarnięcia category
+                images: item.images,
+                category: category
               });
         
               await productRepository.save(product);
