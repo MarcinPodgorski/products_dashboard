@@ -8,20 +8,17 @@ export async function addUser(req: Request, res: Response): Promise<any> {
   try {
     const { email, username, password, categoryIds } = req.body;
 
-    // Sprawdź czy użytkownik to admin
-    // const currentUser = req.user as User;
-    // if (!currentUser || !currentUser.isAdmin) {
-    //   return res.status(403).json({ message: "Access denied" });
-    // }
+    const currentUser = req.user as User;
+    if (!currentUser || !currentUser.isAdmin) {
+      return res.status(403).json({ message: "Access denied" });
+    }
 
-    // Walidacja podstawowa
     if (!email || !username || !password || !Array.isArray(categoryIds)) {
       return res.status(400).json({ message: "Missing or invalid fields" });
     }
 
     const userRepo = AppDataSource.getRepository(User);
 
-    // Sprawdź czy email lub login już istnieje
     const existingUser = await userRepo.findOne({
       where: [{ email }, { username }],
     });
@@ -37,7 +34,6 @@ export async function addUser(req: Request, res: Response): Promise<any> {
       return res.status(400).json({ message: "Invalid category IDs" });
     }
 
-    // Hashowanie hasła
     const hashedPassword = await hashPassword(password);
 
     const user = new User();
@@ -45,7 +41,7 @@ export async function addUser(req: Request, res: Response): Promise<any> {
     user.username = username;
     user.password = hashedPassword;
     user.categories = categories;
-    user.isAdmin = false; // domyślnie zwykły użytkownik
+    user.isAdmin = false;
 
     await userRepo.save(user);
 

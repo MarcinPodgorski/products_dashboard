@@ -5,7 +5,6 @@ import { generateToken } from '../utils/jwt';
 import { Request, Response } from 'express';
 
 export async function login(req: Request, res: Response):Promise<any> {
-    console.log("dupa")
     const { email, password } = req.body;
 
     const user = await AppDataSource.getRepository(User).findOneBy({ email });
@@ -21,5 +20,11 @@ export async function login(req: Request, res: Response):Promise<any> {
         email: user.email,
         isAdmin: user.isAdmin,
     });
-    res.json({ token });
+    res.json({ 
+        token,
+        user: {
+            username: user.username,
+            email: user.email
+        }
+    });
 };

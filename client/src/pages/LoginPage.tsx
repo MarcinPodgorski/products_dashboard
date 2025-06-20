@@ -1,12 +1,15 @@
 import axios from "axios";
 import { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from '../context/AuthContext';
 
 export default function LoginPage() {
     const [userData, setUserData] = useState({
         email: "",
         password: ""
     })
+
+    const { setUser } = useAuth()
 
     const navigate = useNavigate()
     const [errorMessage, setErrorMessage] = useState("")
@@ -23,6 +26,8 @@ export default function LoginPage() {
         axios.post("http://localhost:5001/auth/login", userData)
             .then((res) => {
                 if (res.status === 200) {
+                    localStorage.setItem('token', res.data.token)
+                    setUser(res.data.user)
                     navigate('/')
                 }
             })
