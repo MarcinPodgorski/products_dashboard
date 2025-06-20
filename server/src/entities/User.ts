@@ -9,7 +9,6 @@ import {
     BeforeInsert,
 } from 'typeorm';
 import { Category } from './Category';
-import bcrypt from 'bcryptjs';
 
 @Entity()
 export class User {
@@ -37,13 +36,4 @@ export class User {
     @ManyToMany(() => Category)
     @JoinTable()
     categories!: Category[];
-
-    @BeforeInsert()
-    async hashPassword() {
-        this.password = await bcrypt.hash(this.password, 10);
-    }
-
-    async validatePassword(input: string): Promise<boolean> {
-        return bcrypt.compare(input, this.password);
-    }
 }

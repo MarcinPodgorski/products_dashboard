@@ -6,7 +6,7 @@ import Header from './components/Header';
 export default function App() {
   return (
     <>
-      <Header />
+     <Header />
       <main className="p-4">
         <Routes>
           <Route path="/" element={<HomePage />} />

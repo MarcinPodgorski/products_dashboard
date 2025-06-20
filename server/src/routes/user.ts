@@ -4,6 +4,6 @@ import { authenticate } from '../middleware/auth';
 
 const router = Router()
 
-router.post('/adduser', authenticate, addUser);
+router.post('/adduser', addUser);
 
 export default router;

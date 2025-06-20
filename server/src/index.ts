@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import express from 'express';
+import cors from 'cors';
 import dotenv from 'dotenv';
 import { AppDataSource } from './data-source';
 import authRouter from './routes/auth';
@@ -9,6 +10,11 @@ import { fetchAndSaveProducts } from './utils/fetchAndSaveProducts';
 
 dotenv.config();
 const app = express();
+
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true
+}));
 
 app.use(express.json());
 

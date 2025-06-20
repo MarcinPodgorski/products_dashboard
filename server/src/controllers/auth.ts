@@ -5,13 +5,14 @@ import { generateToken } from '../utils/jwt';
 import { Request, Response } from 'express';
 
 export async function login(req: Request, res: Response):Promise<any> {
+    console.log("dupa")
     const { email, password } = req.body;
 
     const user = await AppDataSource.getRepository(User).findOneBy({ email });
 
     if (!user) return res.status(401).json({ message: 'Invalid credentials' });
 
-    const isMatch = await comparePasswords(password, user.password);
+    const isMatch: boolean = await comparePasswords(password, user.password);
     if (!isMatch) return res.status(401).json({ message: 'Invalid credentials' });
 
     const token = generateToken({
@@ -20,6 +21,5 @@ export async function login(req: Request, res: Response):Promise<any> {
         email: user.email,
         isAdmin: user.isAdmin,
     });
-
     res.json({ token });
 };
