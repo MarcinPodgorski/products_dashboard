@@ -2,6 +2,8 @@
 
 Dashboard do zarządzania produktami — umożliwia ich przeglądanie, masową edycję cen, eksport danych i więcej. Aplikacja wspiera uwierzytelnianie JWT, rolę administratora i operacje na wielu produktach jednocześnie.
 
+Praktycznie wszystko w tym projekcie to vibe-coding. Nawet ten README.md jest wzięty żywcem z ChatGPT lol.
+
 ---
 
 ## 🚀 Funkcje
