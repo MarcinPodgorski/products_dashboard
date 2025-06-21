@@ -2,8 +2,17 @@ import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import Header from './components/Header';
+import { useAuth } from './context/AuthContext';
 
 export default function App() {
+  const { loading } = useAuth()
+  if (loading) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <div className="text-xl animate-pulse">Ładowanie...</div>
+      </div>
+    )
+  }
   return (
     <>
      <Header />

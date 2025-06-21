@@ -1,14 +1,15 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import 'reflect-metadata';
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import { AppDataSource } from './data-source';
 import authRouter from './routes/auth';
 import userRouter from './routes/user';
 import productRouter from './routes/product';
 import { fetchAndSaveProducts } from './utils/fetchAndSaveProducts';
 
-dotenv.config();
 const app = express();
 
 app.use(cors({

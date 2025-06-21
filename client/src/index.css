@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+@layer base {
+  html {
+    overflow: auto !important;
+    padding: 0 !important;
+  }
+}

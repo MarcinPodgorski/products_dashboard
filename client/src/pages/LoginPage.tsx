@@ -38,7 +38,6 @@ export default function LoginPage() {
     };
     return (
         <>
-            (
             <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
                 <h3 className="text-3xl font-bold mb-10">Zaloguj się</h3>
                 <form className="space-y-6" onSubmit={handleSubmit}>
@@ -66,8 +65,6 @@ export default function LoginPage() {
                 </form>
                 {errorMessage && <p className="text-xl text-red-600">{errorMessage}</p>}
             </div>
-
-            )
         </>
 
     );

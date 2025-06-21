@@ -62,6 +62,24 @@ export default function HomePage() {
 
     return (
         <div className="p-4">
+            <div className="flex justify-between items-center mb-4 text-sm text-gray-600 w-full">
+                <div>
+                    Zaznaczono: {selectedIds.length} z {products.length}
+                </div>
+                <button
+                    onClick={() => {
+                        if (selectedIds.length === products.length) {
+                            setSelectedIds([]);
+                        } else {
+                            setSelectedIds(products.map(p => p.id));
+                        }
+                    }}
+                    className="px-3 py-1 rounded bg-blue-600 text-white hover:bg-blue-500"
+                >
+                    {selectedIds.length === products.length ? 'Odznacz wszystkie' : 'Zaznacz wszystkie'}
+                </button>
+            </div>
+
             {/* Kontrola widoku i sortowania */}
             <div className="flex justify-between items-center mb-4">
                 <div className="space-x-2">
@@ -95,7 +113,9 @@ export default function HomePage() {
                         onPriceUpdateClick={() => setShowPriceModal(true)}
                     />
 
-                    <ExportDropdown products={products.filter((p) => selectedIds.includes(p.id))} />
+                    <ExportDropdown
+                        selectedProducts={products.filter((p) => selectedIds.includes(p.id))}
+                    />
 
                     <PriceUpdateModal
                         isOpen={showPriceModal}
@@ -103,6 +123,7 @@ export default function HomePage() {
                         onUpdate={handlePriceUpdate}
                     />
                 </div>
+
             </div>
 
             {/* Widok produktów */}

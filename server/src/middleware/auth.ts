@@ -25,6 +25,7 @@ export async function authenticate(req: Request, res: Response, next: NextFuncti
     req.user = user;
     next();
   } catch (err) {
+    console.log(err)
     res.status(401).json({ message: "Invalid token" });
   }
 }
