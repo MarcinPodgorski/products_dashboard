@@ -36,3 +36,35 @@ Praktycznie wszystko w tym projekcie to vibe-coding. Nawet ten README.md jest wz
 ```bash
 git clone https://github.com/twoj-login/products-dashboard.git
 cd products-dashboard
+```
+
+### 2. Backend
+```bash
+cd server
+cp .env.example .env     # Ustaw swoje zmienne
+npm install
+npm run dev
+```
+
+W pliku .env ustaw np.:
+```bash
+PORT=5001
+JWT_SECRET=supersecret
+DATABASE_URL=postgres://user:password@localhost:5432/dashboarddb
+```
+
+### 3. Frontend
+```bash
+cd client
+npm install
+npm run dev
+```
+
+## 🔐 Uwierzytelnianie
+
+- Rejestracja publiczna jest zablokowana.
+- Konta użytkowników może tworzyć tylko administrator.
+- JWT token zapisywany jest w localStorage i wysyłany w nagłówkach.
+
+# 📝 Licencja
+MIT © 2025

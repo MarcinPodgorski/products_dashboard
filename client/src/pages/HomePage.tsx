@@ -13,7 +13,7 @@ export default function HomePage() {
     const [showPriceModal, setShowPriceModal] = useState(false);
 
     const [loading, setLoading] = useState(true);
-    const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+    const [viewMode, setViewMode] = useState<'grid' | 'list'>('list');
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
     const [selectedIds, setSelectedIds] = useState<number[]>([]); // 🆕
 
@@ -84,16 +84,16 @@ export default function HomePage() {
             <div className="flex justify-between items-center mb-4">
                 <div className="space-x-2">
                     <button
-                        onClick={() => setViewMode('grid')}
-                        className={`px-3 py-1 rounded ${viewMode === 'grid' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
-                    >
-                        Kafelki
-                    </button>
-                    <button
                         onClick={() => setViewMode('list')}
                         className={`px-3 py-1 rounded ${viewMode === 'list' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
                     >
                         Lista
+                    </button>
+                    <button
+                        onClick={() => setViewMode('grid')}
+                        className={`px-3 py-1 rounded ${viewMode === 'grid' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
+                    >
+                        Kafelki
                     </button>
                 </div>
                 <div className="flex gap-4 items-center">
