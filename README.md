@@ -1,52 +1,51 @@
 # 🛒 Products Dashboard
 
-Dashboard do zarządzania produktami — umożliwia ich przeglądanie, masową edycję cen, eksport danych i więcej. Aplikacja wspiera uwierzytelnianie JWT, rolę administratora i operacje na wielu produktach jednocześnie.
+A dashboard for product management — allows browsing products, bulk price editing, data export, and more. The app supports JWT authentication, admin role, and multi-product operations.
 
-Praktycznie wszystko w tym projekcie to vibe-coding. Nawet ten README.md jest wzięty żywcem z ChatGPT lol.
-
----
-
-## 🚀 Funkcje
-
-- ✅ Rejestracja i logowanie (admin dodaje użytkowników)
-- ✅ Przegląd produktów w widoku kafelkowym lub listy
-- ✅ Sortowanie po cenie (rosnąco/malejąco)
-- ✅ Zaznaczanie wielu produktów (zaznacz wszystkie / odznacz wszystkie)
-- ✅ Masowa zmiana cen produktów
-- ✅ Eksport zaznaczonych produktów (CSV, XLSX, JSON)
-- ✅ Autoryzacja oparta o JWT
-- ✅ Backend API z Express + TypeScript + PostgreSQL
+Honestly, almost everything in this project is vibe-coding. Even this README.md is straight from ChatGPT lol.
 
 ---
 
-## 🧱 Stos technologiczny
+## 🚀 Features
+
+- ✅ Registration and login (admin creates users)
+- ✅ Product browsing in grid or list view
+- ✅ Sorting by price (ascending/descending)
+- ✅ Multi-product selection (select all / deselect all)
+- ✅ Bulk product price editing
+- ✅ Export selected products (CSV, XLSX, JSON)
+- ✅ JWT-based authentication
+- ✅ Backend API with Express + TypeScript + PostgreSQL
+
+---
+
+## 🧱 Tech Stack
 
 - **Frontend:** React + TailwindCSS + TypeScript
 - **Backend:** Node.js + Express + TypeScript + PostgreSQL (TypeORM)
-- **Auth:** JWT z zabezpieczonym tokenem w localStorage
-- **Eksport:** XLSX, CSV, JSON
-- **Inne:** Axios, Dotenv, Cors, ts-node, bcrypt
+- **Auth:** JWT with secure token stored in localStorage
+- **Export:** XLSX, CSV, JSON
+- **Others:** Axios, Dotenv, Cors, ts-node, bcrypt
 
 ---
 
-## 🧑‍💻 Instalacja
+## 🧑‍💻 Installation
 
-### 1. Klonowanie repozytorium
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/twoj-login/products-dashboard.git
+git clone https://github.com/your-username/products-dashboard.git
 cd products-dashboard
-```
 
 ### 2. Backend
 ```bash
 cd server
-cp .env.example .env     # Ustaw swoje zmienne
+cp .env.example .env     # Set your variables
 npm install
 npm run dev
 ```
 
-W pliku .env ustaw np.:
+In your .env file, for example:
 ```bash
 PORT=5001
 JWT_SECRET=supersecret
@@ -60,11 +59,11 @@ npm install
 npm run dev
 ```
 
-## 🔐 Uwierzytelnianie
+## 🔐 Authentication
 
-- Rejestracja publiczna jest zablokowana.
-- Konta użytkowników może tworzyć tylko administrator.
-- JWT token zapisywany jest w localStorage i wysyłany w nagłówkach.
+- For now, registration is not available.
+- JWT is saved in localStorage and sent through headers.
 
-# 📝 Licencja
-MIT © 2025
+# 📝 Licence
+MIT © 2025 lmao
+
