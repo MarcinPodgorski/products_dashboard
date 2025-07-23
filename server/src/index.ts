@@ -13,7 +13,7 @@ import { fetchAndSaveProducts } from './utils/fetchAndSaveProducts';
 const app = express();
 
 app.use(cors({
-    origin: 'http://localhost:5174',
+    origin: 'http://localhost:5173',
     credentials: true
 }));
 
@@ -39,6 +39,6 @@ AppDataSource.initialize().
             if (error) {
                 console.log(error)
             }
-            console.log("Serwer dziala");
+            console.log("Server running on port "+PORT);
         })
     })
