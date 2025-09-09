@@ -1,71 +1,106 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from "../context/AuthContext";
 
 export default function LoginPage() {
-    const [userData, setUserData] = useState({
-        email: "",
-        password: ""
-    })
+  const [userData, setUserData] = useState({
+    email: "",
+    password: "",
+  });
 
-    const { setUser } = useAuth()
+  const { setUser } = useAuth();
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
 
-    const navigate = useNavigate()
-    const [errorMessage, setErrorMessage] = useState("")
+  const handleUserData = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUserData({
+      ...userData,
+      [event.target.name]: event.target.value,
+    });
+  };
 
-    const handleUserData = (event: any) => {
-        setUserData({
-            ...userData,
-            [event.target.name]: event.target.value
-        })
-    }
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    axios
+      .post("http://localhost:5001/auth/login", userData)
+      .then((res) => {
+        if (res.status === 200) {
+          localStorage.setItem("token", res.data.token);
+          setUser(res.data.user);
+          navigate("/");
+        }
+      })
+      .catch(() => {
+        setErrorMessage("Błędny login lub hasło");
+      });
+  };
 
-    const handleSubmit = (event: any) => {
-        event.preventDefault();
-        axios.post("http://localhost:5001/auth/login", userData)
-            .then((res) => {
-                if (res.status === 200) {
-                    localStorage.setItem('token', res.data.token)
-                    setUser(res.data.user)
-                    navigate('/')
-                }
-            })
-            .catch((err) => {
-                console.log(err)
-                setErrorMessage("Błędny login lub hasło")
-            });
-    };
-    return (
-        <>
-            <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
-                <h3 className="text-3xl font-bold mb-10">Zaloguj się</h3>
-                <form className="space-y-6" onSubmit={handleSubmit}>
-                    <input
-                        className="block w-full rounded-md border-0 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset"
-                        placeholder='email'
-                        type="text"
-                        name="email"
-                        value={userData.email}
-                        onChange={handleUserData}
-                        required
-                    />
-                    <input
-                        className="block w-full rounded-md border-0 p-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset"
-                        placeholder='Hasło'
-                        type="password"
-                        name="password"
-                        value={userData.password}
-                        onChange={handleUserData}
-                        required
-                    />
-                    <button className="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600" type="submit">
-                        Zaloguj
-                    </button>
-                </form>
-                <Link to="/register">Załóż konto</Link>
-                {errorMessage && <p className="text-xl text-red-600">{errorMessage}</p>}
-            </div>
-        </>
-    );
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md">
+        <h1 className="text-2xl font-bold text-gray-800 mb-2 text-center">
+          Zaloguj się
+        </h1>
+        <p className="text-gray-500 text-center mb-6">
+          Witaj ponownie 👋 Wpisz dane, aby kontynuować
+        </p>
+
+        <form className="space-y-4" onSubmit={handleSubmit}>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Email
+            </label>
+            <input
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              placeholder="Twój email"
+              type="email"
+              name="email"
+              value={userData.email}
+              onChange={handleUserData}
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Hasło
+            </label>
+            <input
+              className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              placeholder="********"
+              type="password"
+              name="password"
+              value={userData.password}
+              onChange={handleUserData}
+              required
+            />
+          </div>
+
+          <button
+            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-semibold transition-colors"
+            type="submit"
+          >
+            Zaloguj się
+          </button>
+        </form>
+
+        {errorMessage && (
+          <p className="text-sm mt-4 text-center text-red-600">
+            {errorMessage}
+          </p>
+        )}
+
+        <p className="text-center text-gray-500 text-sm mt-6">
+          Nie masz konta?{" "}
+          <Link
+            to="/register"
+            className="text-indigo-600 hover:underline font-medium"
+          >
+            Zarejestruj się
+          </Link>
+        </p>
+      </div>
+    </div>
+  );
 }
